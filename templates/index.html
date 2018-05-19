@@ -1,0 +1,52 @@
+
+{% extends "layout.html" %}
+
+{% block content %}
+
+	{% from "_formhelpers.html" import render_field %}
+	<main class="hero-section">
+    	<!-- <div class="container">		 -->
+    		<div class="section-content">
+				<form method=post>
+				  <dl>
+				    {{ render_field(form1.select) }}
+				    {{ render_field(form1.search) }}
+				    {{ render_field(form1.star) }}
+				    {{ render_field(form1.begin_date) }}
+				    {{ render_field(form1.end_date) }}
+				  </dl>
+				  <p><input type=submit value=Search>
+				</form>
+
+				<form method=post>
+					<dl>
+					{{ render_field(form2.text_input) }}
+					</dl>
+					<p><input type=submit value='Get Stars'>
+				</form>
+				<p>
+				Your review should rate : {{UserStar}}
+
+
+			</div>
+
+			<div class="section-list">
+				<h2> List Search Result</h2>
+				The topic of interest: {{search_topic}}
+				<p>
+				The restaurant of interest: {{search_name}}
+				{% for content in MyResult %}
+				<ul> 
+					<li>
+						Date: {{ content.date.strftime('%Y-%m-%d') }}, Ratings: {{content.stars}}
+					</li>
+					<li>
+						--- {{content.text[:200]}}...
+					</li>
+				 </ul>
+				{% endfor %}
+			</div>
+		<!-- </div> -->
+	</main>
+
+{% endblock %}
